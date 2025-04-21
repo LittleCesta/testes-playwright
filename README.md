@@ -25,3 +25,5 @@ Para abrir e rodar o projeto, execute `npm i` para instalar as dependências e `
 Depois, acesse <a href="http://localhost:4200/">http://localhost:4200/</a> no seu navegador.
 
 Você também precisa rodar o [back-end utilizado no curso](https://github.com/viniciosneves/jornada-milhas-api).
+
+A api e o front devem ser iniciados com um `npm start`. Temos que acessar a pasta com os projetos, a da API deve ser acessada pelo terminal do sistema e a do front pode ser pelo terminal do VSCode. Feito isso é só inserir o comando na linha.
