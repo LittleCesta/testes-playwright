@@ -1,0 +1,96 @@
+<app-card variant="secondary" class="form-busca">
+  <form [formGroup]="formBuscaService.formBusca" (ngSubmit)="buscar()">
+    <h2 data-testid="titulo-passagens">Passagens</h2>
+    <div class="flex-container">
+      <mat-button-toggle-group
+        aria-label="Tipo de passagem"
+        formControlName="somenteIda"
+      >
+        <mat-button-toggle [value]="false" data-testid="botao-ida-e-volta">
+          <mat-icon *ngIf="!formBuscaService.formBusca.get('somenteIda')?.value"
+            >check</mat-icon
+          >
+          IDA E VOLTA
+        </mat-button-toggle>
+        <mat-button-toggle [value]="true" data-testid="botao-somente-ida">
+          <mat-icon *ngIf="formBuscaService.formBusca.get('somenteIda')?.value"
+            >check</mat-icon
+          >
+          SOMENTE IDA
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+      <mat-chip
+        (click)="formBuscaService.openDialog()"
+        data-testid="abrir-modal-passageiros"
+      >
+        <div class="inner">
+          <mat-icon>check</mat-icon>
+          {{ formBuscaService.getDescricaoPassageiros() }}
+        </div>
+      </mat-chip>
+      <mat-chip
+        (click)="formBuscaService.openDialog()"
+        data-testid="botao-mudar-tipo-passagem"
+      >
+        <div class="inner">
+          <mat-icon>check</mat-icon>
+          {{ formBuscaService.obterControle("tipo").value }}
+        </div>
+      </mat-chip>
+    </div>
+    <div class="flex-container">
+      <div class="drop-container">
+        <app-dropdown-uf
+          label="Origem"
+          placeholder="Origem"
+          iconePrefixo="flight_takeoff"
+          [control]="formBuscaService.obterControle('origem')"
+          data-testid="campo-dropdown-origem"
+        />
+      </div>
+      <button mat-icon-button (click)="formBuscaService.trocarOrigemDestino()">
+        <mat-icon>sync_alt</mat-icon>
+      </button>
+      <div class="drop-container">
+        <app-dropdown-uf
+          label="Destino"
+          placeholder="Destino"
+          iconePrefixo="flight_land"
+          [control]="formBuscaService.obterControle('destino')"
+          data-testid="campo-dropdown-destino"
+        />
+      </div>
+      <mat-form-field class="input-container" appearance="outline">
+        <mat-label>Data de ida</mat-label>
+        <input
+          matInput
+          [matDatepicker]="ida"
+          formControlName="dataIda"
+          data-testid="campo-data-ida"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="ida"
+          data-testid="icone-data-ida"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #ida></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="input-container" appearance="outline">
+        <mat-label>Data da volta</mat-label>
+        <input matInput [matDatepicker]="volta" formControlName="dataVolta" />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="volta"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #volta></mat-datepicker>
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        data-testid="botao-buscar-passagens"
+      >
+        BUSCAR
+      </button>
+    </div>
+  </form>
+</app-card>
