@@ -1,6 +1,18 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { test as base } from "@playwright/test";
 //Esse arquivo é um Page Object Model, que é um padrão de projeto que tem como objetivo encapsular a lógica de interação com uma página da aplicação. 
 //Ele ajuda a manter o código mais organizado e reutilizável, separando a lógica de teste da lógica de interação com a interface do usuário.
+
+export const test = base.extend<{ paginaLogin: PaginaLogin}>({
+    paginaLogin: async ({ page }, use) => {
+        const paginaLogin = new PaginaLogin(page);
+        await paginaLogin.visitar();
+        await use(paginaLogin);
+    }   
+});
+//Criamos essa extensão do test do playwright para diminuir a repetição de código, visto que vamos escrever essas linhas mais de uma vez.
+
+
 export default class PaginaLogin {
     private readonly page: Page;
     private readonly botaoLogin: Locator;
